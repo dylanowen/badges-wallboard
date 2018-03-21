@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+   <head>
+      <title>Build Status</title>
+      <link rel="stylesheet" href="css/normalize.css">
+     <link rel="stylesheet" href="css/skeleton.css">
+      <style type="text/css">
+:root {
+   --row-height: 120px;
+}
+
+body {
+   line-height: 1.3;
+}
+
+#projectsTable {
+   width: 80%;
+   margin: 0px auto;
+   font-size: var(--row-height);
+}
+
+td {
+   padding: 0px;
+   max-width: 100%;
+}
+
+.right {
+   text-align: right;
+}
+
+.badge {
+   height: var(--row-height);
+}
+
+#error {
+   text-align: center;
+   display: none;
+   color: red;
+}
+      </style>
+   </head>
+   <body>
+      <h1 class="container" id="error">Error</h1>
+      <table class="u-full-width" id="projectsTable"></table>
+      <script type="text/javascript">
+'use strict';
+
+function render(projects) {
+   console.log(projects);
+
+   const table = document.getElementById('projectsTable');
+
+   // clear all the children from the table
+   while (table.firstChild) {
+      table.removeChild(table.firstChild);
+   }
+
+   for (var i = 0; i < projects.length; i++) {
+      const project = projects[i];
+      console.log(project);
+
+      const row = document.createElement('tr');
+      const left = document.createElement('td');
+      const right = document.createElement('td');
+      right.className = 'right';
+
+      left.textContent = project.title;
+
+      const badge = document.createElement('img');
+      badge.src = project.badgeUrl;
+      badge.className = 'badge';
+      right.appendChild(badge);
+
+      row.appendChild(left);
+      row.appendChild(right);
+      table.appendChild(row);
+   }
+}
+
+fetch('config.json')
+   .then((response) => {
+      console.log(response);
+
+      return response.json();
+   })
+   .then((json) => {
+      console.log(json);
+
+      render(json.projects);
+   })
+   .catch((error) => {
+      console.error(error);
+
+      const errorElement = document.getElementById('error');
+      errorElement.textContent = error;
+      errorElement.style.display = 'inline';
+   });
+    </script>
+  </body>
+</html>

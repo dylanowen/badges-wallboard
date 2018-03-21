@@ -1,0 +1,8 @@
+{
+   "projects": [
+      {
+         "title": "Akka",
+         "badgeUrl": "https://index.scala-lang.org/akka/akka-http/akka-http-core/latest.svg"
+      }
+   ]
+}
