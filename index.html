@@ -77,12 +77,27 @@ function render(projects) {
    }
 }
 
-fetch('config.json')
-   .then((response) => {
-      console.log(response);
+function getConfig() {
+   return new Promise((resolve, reject) => {
+      const xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+         if (this.readyState == 4) {
+            if (this.status == 200) {
+               const json = JSON.parse(this.responseText);
 
-      return response.json();
-   })
+               resolve(json);
+            }
+            else {
+               reject(this.status + ': ' + this.responseText);
+            }
+         }
+     };
+     xhttp.open("GET", "config.json", true);
+     xhttp.send();
+   });
+}
+
+getConfig()
    .then((json) => {
       console.log(json);
 
