@@ -98,6 +98,9 @@ function getConfig() {
 }
 
 function reload() {
+   const errorElement = document.getElementById('error');
+   errorElement.style.display = 'none';
+
    getConfig()
       .then((json) => {
          console.log(json);
@@ -107,7 +110,6 @@ function reload() {
       .catch((error) => {
          console.error(error);
 
-         const errorElement = document.getElementById('error');
          errorElement.textContent = error;
          errorElement.style.display = 'inline';
       });
