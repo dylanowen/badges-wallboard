@@ -97,19 +97,25 @@ function getConfig() {
    });
 }
 
-getConfig()
-   .then((json) => {
-      console.log(json);
+function reload() {
+   getConfig()
+      .then((json) => {
+         console.log(json);
 
-      render(json.projects);
-   })
-   .catch((error) => {
-      console.error(error);
+         render(json.projects);
+      })
+      .catch((error) => {
+         console.error(error);
 
-      const errorElement = document.getElementById('error');
-      errorElement.textContent = error;
-      errorElement.style.display = 'inline';
-   });
+         const errorElement = document.getElementById('error');
+         errorElement.textContent = error;
+         errorElement.style.display = 'inline';
+      });
+}
+
+reload();
+setInterval(reload, 30 * 1000);
+
     </script>
   </body>
 </html>
